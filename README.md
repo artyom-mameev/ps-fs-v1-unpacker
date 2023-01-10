@@ -37,7 +37,7 @@ Maven is used to automatically build the project.
 ## Features
 
 - A simple user interface, which alerts the user about errors, warns about the
-  possible irreversibility of operations and informs about the successful
+  possible irreversibility of operations, and informs about the successful
   completion of actions, the result of which is not obvious;
 - Users can select specific files to unpack;
 - Users can select the folder in which the files should be unpacked;
