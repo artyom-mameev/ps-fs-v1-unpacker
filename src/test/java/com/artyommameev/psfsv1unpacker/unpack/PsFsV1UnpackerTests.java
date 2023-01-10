@@ -19,7 +19,8 @@ public class PsFsV1UnpackerTests {
 
     @BeforeEach
     void setUp() throws IOException {
-        val testResourceUrl = getClass().getResource("test.dat");
+        val testResourceUrl = getClass().getClassLoader()
+                .getResource("test.dat");
         psFsV1Unpacker = new PsFsV1Unpacker(new File(testResourceUrl.getPath()));
     }
 
@@ -31,8 +32,8 @@ public class PsFsV1UnpackerTests {
 
     @Test
     void constructorThrowsIllegalArgumentExceptionIfHeaderIsWrong() {
-        val testWrongHeaderResourceUrl = getClass().getResource(
-                "test_wrong_header.dat");
+        val testWrongHeaderResourceUrl = getClass().getClassLoader()
+                .getResource("test_wrong_header.dat");
 
         assertThrows(IllegalArgumentException.class, () -> psFsV1Unpacker =
                 new PsFsV1Unpacker(new File(testWrongHeaderResourceUrl.getPath())));
@@ -40,8 +41,8 @@ public class PsFsV1UnpackerTests {
 
     @Test
     void constructorThrowsIllegalArgumentExceptionIfHeaderIsCorrupted() {
-        val testCorruptedHeaderResourceUrl = getClass().getResource(
-                "test_wrong_header.dat");
+        val testCorruptedHeaderResourceUrl = getClass().getClassLoader()
+                .getResource("test_wrong_header.dat");
 
         assertThrows(IllegalArgumentException.class, () -> psFsV1Unpacker =
                 new PsFsV1Unpacker(new File(testCorruptedHeaderResourceUrl
@@ -69,8 +70,8 @@ public class PsFsV1UnpackerTests {
 
     @Test
     void getAllResourcesThrowsIllegalArgumentExceptionIfFileIsCorrupted() {
-        val testCorruptedResourceUrl = getClass().getResource(
-                "test_wrong_header.dat");
+        val testCorruptedResourceUrl = getClass().getClassLoader()
+                .getResource("test_wrong_header.dat");
 
         assertThrows(IllegalArgumentException.class, () -> {
             psFsV1Unpacker = new PsFsV1Unpacker(new File(
@@ -81,11 +82,13 @@ public class PsFsV1UnpackerTests {
 
     @Test
     void unpackResourceThrowsNullPointerExceptionIfDirectoryOrResourceIsNull() {
-        assertThrows(NullPointerException.class, () -> psFsV1Unpacker.unpackResource(
+        assertThrows(NullPointerException.class, () ->
+                psFsV1Unpacker.unpackResource(
                 null, new Resource("test", 1, 2)));
 
-        assertThrows(NullPointerException.class, () -> psFsV1Unpacker.unpackResource(
-                new File("./"), null));
+        assertThrows(NullPointerException.class, () ->
+                psFsV1Unpacker.unpackResource(
+                        new File("./"), null));
     }
 
     @Test
